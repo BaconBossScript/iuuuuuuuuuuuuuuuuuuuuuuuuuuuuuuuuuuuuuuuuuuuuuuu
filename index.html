@@ -283,6 +283,38 @@
       z-index: 15;
     }
 
+    /* Nút điều khiển nhạc */
+    .music-control {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .music-control:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .music-control.muted {
+      opacity: 0.7;
+    }
+
+    .music-icon {
+      font-size: 24px;
+      color: #ff4d6d;
+    }
+
     @keyframes float {
       0%, 100% { transform: translateX(-50%) translateY(0px); }
       50% { transform: translateX(-50%) translateY(-10px); }
@@ -324,6 +356,11 @@
 <body>
   <div class="falling"></div>
   
+  <!-- Nút điều khiển nhạc -->
+  <div class="music-control" id="musicControl">
+    <div class="music-icon">🎵</div>
+  </div>
+  
   <div class="heart-container">
     <div class="heart-text">pé chạm trái tym nhỏ pé nì của anh ik ^^</div>
     <div class="heart"></div>
@@ -339,6 +376,13 @@
   </div>
   <div class="big-flower" id="bigFlower">💐</div>
 
+  <!-- Audio element -->
+  <audio id="backgroundMusic" loop>
+    <source src="https://assets.mixkit.co/music/preview/mixkit-paper-romance-577.mp3" type="audio/mpeg">
+    <source src="https://assets.mixkit.co/music/preview/mixkit-loving-you-117.wav" type="audio/wav">
+    Trình duyệt của bạn không hỗ trợ phát nhạc.
+  </audio>
+
   <script>
     const falling = document.querySelector('.falling');
     const heart = document.querySelector('.heart');
@@ -347,6 +391,48 @@
     const msgEl = document.getElementById('msg');
     const smallFlower = document.getElementById('smallFlower');
     const bigFlower = document.getElementById('bigFlower');
+    const musicControl = document.getElementById('musicControl');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+
+    // Biến để theo dõi trạng thái nhạc
+    let isMusicPlaying = false;
+
+    // Tự động phát nhạc khi người dùng tương tác với trang
+    function setupAudio() {
+      // Thêm sự kiện click toàn trang để bắt đầu phát nhạc
+      const startAudio = () => {
+        if (!isMusicPlaying) {
+          backgroundMusic.volume = 0.5;
+          backgroundMusic.play().then(() => {
+            isMusicPlaying = true;
+            musicControl.classList.remove('muted');
+          }).catch(error => {
+            console.log('Lỗi phát nhạc:', error);
+          });
+          
+          // Xóa sự kiện sau khi đã kích hoạt
+          document.removeEventListener('click', startAudio);
+          document.removeEventListener('touchstart', startAudio);
+        }
+      };
+      
+      document.addEventListener('click', startAudio);
+      document.addEventListener('touchstart', startAudio);
+    }
+
+    // Điều khiển nhạc
+    musicControl.addEventListener('click', () => {
+      if (isMusicPlaying) {
+        backgroundMusic.pause();
+        musicControl.classList.add('muted');
+        musicControl.querySelector('.music-icon').textContent = '🔇';
+      } else {
+        backgroundMusic.play();
+        musicControl.classList.remove('muted');
+        musicControl.querySelector('.music-icon').textContent = '🎵';
+      }
+      isMusicPlaying = !isMusicPlaying;
+    });
 
     // tạo hiệu ứng tim / hoa rơi
     function createFalling() {
@@ -373,12 +459,11 @@ cũng đừng quên chăm sóc sức khỏe của mình nhớ ngủ sớm
 hog cố học mà hại sức khỏe nhoaa
 
 anh yêu pé cực nhìu lúm lunnnnnnnn 
-thwwww pé siu nhìu lúm lunnnnnnn ❤
+thwwww pé siu nhìu lúm lunnnnnnn
 
 huhu anh mún gặp pé ngày nì lúm để tặng pé đóa hoa^^
 hui pé nhận đỡ bóa hoa online nì nhoa:>
-
-bấm màn hình cái nữa>>`;
+`;
 
     let i = 0;
     let typingComplete = false;
@@ -489,6 +574,9 @@ bấm màn hình cái nữa>>`;
         createFirework(x, y);
       }
     });
+
+    // Khởi tạo âm thanh
+    setupAudio();
   </script>
 </body>
 </html>
