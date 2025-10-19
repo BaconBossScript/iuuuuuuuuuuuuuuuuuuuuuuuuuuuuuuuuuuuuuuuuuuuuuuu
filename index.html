@@ -1,62 +1,494 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Chúc mừng 20/10 🌸</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chúc mừng 20/10 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #ffafbd, #ffc3a0);
-      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(180deg, #ffe0f0, #fff0f8);
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      font-family: "Poppins", sans-serif;
     }
-    h1 {
-      color: white;
-      font-size: 3em;
-      text-shadow: 2px 2px 8px #ff69b4;
-      animation: pulse 2s infinite;
+
+    .falling {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    /* Container chứa chữ và trái tim */
+    .heart-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       z-index: 10;
     }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
+
+    /* Dòng chữ phía trên trái tim */
+    .heart-text {
+      color: #ff4d6d;
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-family: 'Dancing Script', cursive;
+      animation: textPulse 2s infinite;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
     }
-    .flower {
+
+    @keyframes textPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Trái tim cân đối hơn */
+    .heart {
+      position: relative;
+      width: 100px;
+      height: 90px;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+      z-index: 10;
+    }
+    .heart:before,
+    .heart:after {
+      content: "";
       position: absolute;
-      bottom: -50px;
-      font-size: 2em;
-      animation: floatUp 6s linear infinite;
-      pointer-events: none;
+      left: 50px;
+      top: 0;
+      width: 50px;
+      height: 80px;
+      background: #ff4d6d;
+      border-radius: 50px 50px 0 0;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
     }
-    @keyframes floatUp {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+    .heart:after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Lá thư được trang trí đẹp hơn - KÍCH THƯỚC LỚN HƠN */
+    .letter {
+      position: absolute;
+      width: 420px;
+      height: 320px;
+      background: #fffaf0;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15), 
+                  inset 0 0 0 1px #fff,
+                  inset 0 0 30px rgba(255,182,193,0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(50px) scale(0.9);
+      transition: all 1s ease;
+      z-index: 5;
+      padding: 25px;
+      text-align: center;
+      overflow: hidden;
+      border: 1px solid #ffd1dc;
+    }
+
+    .letter.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .letter:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 12px;
+      background: linear-gradient(90deg, #ffb6c1, #ff69b4, #ffb6c1);
+      border-radius: 8px 8px 0 0;
+    }
+
+    .letter:after {
+      content: "";
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffb6c1' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+      background-size: contain;
+      opacity: 0.3;
+    }
+
+    .letter-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .letter-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(#ffd1dc 1px, transparent 1px),
+        radial-gradient(#ffd1dc 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    /* Font chữ nhỏ hơn để chứa nhiều nội dung */
+    .message {
+      color: #8b4513;
+      font-size: 16px; /* Giảm từ 20px xuống 16px */
+      font-weight: 500;
+      white-space: pre-line;
+      text-align: center;
+      line-height: 1.5; /* Giảm line-height để tiết kiệm không gian */
+      z-index: 1;
+      position: relative;
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+      max-height: 250px;
+      overflow-y: auto;
+      padding: 0 10px;
+      width: 100%;
+    }
+
+    /* Thanh cuộn tùy chỉnh cho message */
+    .message::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .message::-webkit-scrollbar-track {
+      background: rgba(255, 182, 193, 0.2);
+      border-radius: 10px;
+    }
+
+    .message::-webkit-scrollbar-thumb {
+      background: #ff69b4;
+      border-radius: 10px;
+    }
+
+    .message:before {
+      content: "";
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ff69b4, transparent);
+    }
+
+    .stamp {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 60px;
+      height: 60px;
+      border: 2px dashed #ff69b4;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ff69b4;
+      font-size: 10px;
+      font-weight: bold;
+      transform: rotate(15deg);
+      background: rgba(255,255,255,0.7);
+    }
+
+    .stamp:before {
+      content: "20/10";
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Đóa hoa nhỏ */
+    .small-flower {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 30px;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.5s ease;
+      z-index: 6;
+      animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.5));
+    }
+
+    .small-flower.show {
+      opacity: 1;
+    }
+
+    /* Đóa hoa lớn */
+    .big-flower {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      font-size: 150px;
+      z-index: 20;
+      transition: transform 1s ease;
+      pointer-events: none;
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+    }
+
+    .big-flower.show {
+      transform: translate(-50%, -50%) scale(1);
+      animation: rainbow 2s linear infinite, rotate 10s linear infinite;
+    }
+
+    /* Hiệu ứng pháo hoa */
+    .firework {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0px); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    @keyframes rainbow {
+      0% { filter: hue-rotate(0deg) drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)); }
+      100% { filter: hue-rotate(360deg) drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)); }
+    }
+
+    @keyframes rotate {
+      0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .petal {
+      position: absolute;
+      top: -10vh;
+      font-size: 20px;
+      animation: fall linear forwards;
+      opacity: 0.7;
+    }
+
+    .fly-up {
+      animation: flyUp 1s forwards;
+    }
+
+    @keyframes flyUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-300px) scale(0); opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <h1>💐 Chúc mừng 20/10 💖</h1>
+  <div class="falling"></div>
+  
+  <div class="heart-container">
+    <div class="heart-text">pé chạm trái tym nhỏ pé nì của anh ik ^^</div>
+    <div class="heart"></div>
+  </div>
+  
+  <div class="letter">
+    <div class="letter-pattern"></div>
+    <div class="stamp"></div>
+    <div class="letter-content">
+      <div class="message" id="msg"></div>
+      <div class="small-flower" id="smallFlower">💐</div>
+    </div>
+  </div>
+  <div class="big-flower" id="bigFlower">💐</div>
+
   <script>
-    const flowers = ['🌸','🌼','🌺','💐','🌷'];
-    function createFlower() {
-      const span = document.createElement('span');
-      span.classList.add('flower');
-      span.textContent = flowers[Math.floor(Math.random()*flowers.length)];
-      span.style.left = Math.random() * 100 + 'vw';
-      span.style.animationDuration = (4 + Math.random() * 4) + 's';
-      span.style.fontSize = (1 + Math.random()*2) + 'em';
-      document.body.appendChild(span);
-      setTimeout(() => {
-        span.remove();
-      }, 6000);
+    const falling = document.querySelector('.falling');
+    const heart = document.querySelector('.heart');
+    const heartContainer = document.querySelector('.heart-container');
+    const letter = document.querySelector('.letter');
+    const msgEl = document.getElementById('msg');
+    const smallFlower = document.getElementById('smallFlower');
+    const bigFlower = document.getElementById('bigFlower');
+
+    // tạo hiệu ứng tim / hoa rơi
+    function createFalling() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.innerText = Math.random() > 0.5 ? '💖' : '🌸';
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = (5 + Math.random() * 5) + 's';
+      falling.appendChild(petal);
+      setTimeout(() => petal.remove(), 10000);
     }
-    setInterval(createFlower, 300);
+    setInterval(createFalling, 300);
+
+    // typing effect
+    const fullMessage = 
+`pé oiiiiii
+ngày gì đâyyyy
+20/10 chớ gii nữaaaa🥰
+
+anh chúc pé mãi xin đẹppp mãi dthwwww cuteee😘
+học giỏi đậu NV 1 nhoaaaa
+cũng đừng quên chăm sóc sức khỏe của mình nhớ ngủ sớm
+ăn uống đầy đủ uống nhìu nước nhoaa
+hog cố học mà hại sức khỏe nhoaa
+
+anh yêu pé cực nhìu lúm lunnnnnnnn 
+thwwww pé siu nhìu lúm lunnnnnnn ❤
+
+huhu anh mún gặp pé ngày nì lúm để tặng pé đóa hoa^^
+hui pé nhận đỡ bóa hoa online nì nhoa:>
+
+bấm màn hình cái nữa>>`;
+
+    let i = 0;
+    let typingComplete = false;
+
+    function typeWriter() {
+      if (i < fullMessage.length) {
+        msgEl.innerHTML += fullMessage.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+      } else {
+        typingComplete = true;
+        // Hiện đóa hoa nhỏ sau khi viết thư xong
+        setTimeout(() => {
+          smallFlower.classList.add('show');
+        }, 500);
+      }
+    }
+
+    // Tạo hiệu ứng pháo hoa
+    function createFirework(x, y) {
+      for (let i = 0; i < 50; i++) {
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        
+        // Màu sắc ngẫu nhiên
+        const colors = ['#ff4d6d', '#ff8fa3', '#ffb3c1', '#ffccd5', '#ff758f', '#ff477e'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        firework.style.backgroundColor = color;
+        
+        // Vị trí ban đầu
+        firework.style.left = x + 'px';
+        firework.style.top = y + 'px';
+        
+        // Chuyển động ngẫu nhiên
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 2 + Math.random() * 3;
+        const vx = Math.cos(angle) * velocity;
+        const vy = Math.sin(angle) * velocity;
+        
+        document.body.appendChild(firework);
+        
+        // Animation
+        let posX = x;
+        let posY = y;
+        let opacity = 1;
+        
+        const animate = () => {
+          posX += vx;
+          posY += vy;
+          opacity -= 0.02;
+          
+          firework.style.left = posX + 'px';
+          firework.style.top = posY + 'px';
+          firework.style.opacity = opacity;
+          
+          if (opacity > 0) {
+            requestAnimationFrame(animate);
+          } else {
+            firework.remove();
+          }
+        };
+        
+        animate();
+      }
+    }
+
+    // khi click trái tim
+    heart.addEventListener('click', () => {
+      heart.classList.add('fly-up');
+      heartContainer.style.opacity = '0';
+      setTimeout(() => {
+        heart.style.display = 'none';
+        heartContainer.style.display = 'none';
+        letter.classList.add('show');
+        typeWriter();
+      }, 1000);
+    });
+
+    // Khi click vào đóa hoa nhỏ
+    smallFlower.addEventListener('click', () => {
+      if (!typingComplete) return;
+      
+      // Ẩn lá thư và hoa nhỏ
+      letter.style.opacity = '0';
+      letter.style.transform = 'translateY(50px) scale(0.9)';
+      smallFlower.classList.remove('show');
+      
+      // Hiện đóa hoa lớn
+      setTimeout(() => {
+        bigFlower.classList.add('show');
+        
+        // Tạo hiệu ứng pháo hoa
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            createFirework(x, y);
+          }, i * 200);
+        }
+      }, 500);
+    });
+
+    // Cho phép click bất kỳ đâu trên màn hình để hiện hoa lớn (sau khi đã có hoa nhỏ)
+    document.addEventListener('click', (e) => {
+      if (typingComplete && smallFlower.classList.contains('show')) {
+        const x = e.clientX;
+        const y = e.clientY;
+        createFirework(x, y);
+      }
+    });
   </script>
 </body>
 </html>
